@@ -1,34 +1,61 @@
 package hiber;
 
 import hiber.config.AppConfig;
+import hiber.model.Car;
 import hiber.model.User;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class MainApp {
    public static void main(String[] args) throws SQLException {
-      AnnotationConfigApplicationContext context = 
-            new AnnotationConfigApplicationContext(AppConfig.class);
+      AnnotationConfigApplicationContext context =
+              new AnnotationConfigApplicationContext(AppConfig.class);
 
       UserService userService = context.getBean(UserService.class);
 
-      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
-      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
-      userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
-      userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
+      User user = new User("User1", "Lastname1", "user1@mail.ru");
+      User user1 = new User("User2", "Lastname2", "user2@mail.ru");
+      User user2 = new User("User3", "Lastname3", "user3@mail.ru");
+      User user3 = new User("User4", "Lastname4", "user4@mail.ru");
 
-      List<User> users = userService.listUsers();
-      for (User user : users) {
-         System.out.println("Id = "+user.getId());
-         System.out.println("First Name = "+user.getFirstName());
-         System.out.println("Last Name = "+user.getLastName());
-         System.out.println("Email = "+user.getEmail());
-         System.out.println();
+
+      Car car = new Car("BMW", 5);
+      Car car1 = new Car("VAZ", 2109);
+      Car car2 = new Car("Mazda", 6);
+      Car car3 = new Car("Audi", 8);
+
+      userService.add(user.setCar(car).getUser(user));
+      userService.add(user1.setCar(car1).getUser(user1));
+      userService.add(user2.setCar(car2).getUser(user2));
+      userService.add(user3.setCar(car3).getUser(user3));
+
+      try {
+         System.out.println("User with car 1");
+         System.out.println(userService.getUserByCar("Mazda", 6));
+      } catch (Exception e) {
+         System.out.println("User c автомобилем Mazda 6 не найден");
+      }
+      try {
+         System.out.println("User with car 2");
+         System.out.println(userService.getUserByCar("BMW", 5));
+      } catch (Exception e) {
+         System.out.println("User c автомобилем BMW 5 не найден");
       }
 
+      try {
+         System.out.println("User with car 3");
+         System.out.println(userService.getUserByCar("Zeekr", 3));
+      } catch (Exception e) {
+         System.out.println("User c автомобилем Zeekr 3 не найден");
+      }
+      try {
+         System.out.println("User with car 4");
+         System.out.println(userService.getUserByCar("Vaz", 2109));
+      } catch (Exception e) {
+         System.out.println("User c автомобилем Vaz 2109 не найден");
+      }
       context.close();
    }
 }
