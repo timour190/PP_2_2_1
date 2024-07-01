@@ -29,6 +29,7 @@ public class UserDaoImp implements UserDao {
         return query.getResultList();
     }
 
+
     @Override
     @SuppressWarnings("unchecked")
     public User getUserByCar(String model, int series) {

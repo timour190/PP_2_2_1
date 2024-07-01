@@ -26,10 +26,10 @@ public class MainApp {
       Car car2 = new Car("Mazda", 6);
       Car car3 = new Car("Audi", 8);
 
-      userService.add(user.setCar(car).getUser(user));
-      userService.add(user1.setCar(car1).getUser(user1));
-      userService.add(user2.setCar(car2).getUser(user2));
-      userService.add(user3.setCar(car3).getUser(user3));
+      userService.add(user.setCar(car).setUser(user));
+      userService.add(user1.setCar(car1).setUser(user1));
+      userService.add(user2.setCar(car2).setUser(user2));
+      userService.add(user3.setCar(car3).setUser(user3));
 
       try {
          System.out.println("User with car 1");
@@ -55,6 +55,12 @@ public class MainApp {
          System.out.println(userService.getUserByCar("Vaz", 2109));
       } catch (Exception e) {
          System.out.println("User c автомобилем Vaz 2109 не найден");
+      }
+      try {
+         System.out.println("All Users");
+         System.out.println(userService.listUsers());
+      } catch (Exception e) {
+         System.out.println(e);
       }
       context.close();
    }

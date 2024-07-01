@@ -21,7 +21,7 @@ public class Car {
         return user;
     }
 
-    public User getUser(User user) {
+    public User setUser(User user) {
         this.user = user;
         return user;
     }
